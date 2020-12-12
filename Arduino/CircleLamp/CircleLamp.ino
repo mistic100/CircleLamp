@@ -15,8 +15,6 @@
 #define BUTTON_SUSTAIN_INTERVAL 40
 
 #define TEMP_MAX 171
-#define SPEED_MAX 50
-#define SPEED_MIN 10
 
 #define BTN_IDLE 0
 #define BTN_SINGLE 1
@@ -25,26 +23,23 @@
 
 #define MODE_STATIC 0
 #define MODE_RAINBOW 1
-#define MODE_RAINBOW_MOVE 2
-#define MODE_MAX_ MODE_RAINBOW_MOVE
+#define MODE_CANDLE 2
+#define MODE_MAX_ MODE_CANDLE
 
 unsigned long btnTime = 0;
 uint8_t btnState = BTN_IDLE;
 bool btnDouble = false;
 
 CRGB leds[NUM_LEDS];
-uint8_t mode = MODE_STATIC;
+uint8_t mode = MODE_CANDLE;
 bool on = true;
 bool inConfig = false;
 bool configDirection = true;
-uint8_t paletteIndex = 0;
 uint8_t brightness = 64;
 uint8_t temperature = 128;
-uint8_t speed = SPEED_MIN;
 
 void setup() {
   Serial.begin(9600);
-
   FastLED.addLeds<LED_TYPE, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS);
 }
 
@@ -61,11 +56,11 @@ void loop() {
         break;
 
       case MODE_RAINBOW:
-        modeRainbow(false);
+        modeRainbow();
         break;
 
-      case MODE_RAINBOW_MOVE:
-        modeRainbow(true);
+      case MODE_CANDLE:
+        modeCandle();
         break;
     }
   }
@@ -73,7 +68,7 @@ void loop() {
   FastLED.setBrightness(brightness);
   FastLED.show();
   
-  delay(20);
+  FastLED.delay(20);
 }
 
 void modeOff() {
@@ -85,17 +80,50 @@ void modeStatic() {
   fill_solid(leds, NUM_LEDS, color);
 }
 
-void modeRainbow(bool move) {
-  if (move) {
-    paletteIndex+= speed / 10.0;
-  } else {
-    paletteIndex = 0;
-  }
-  
+void modeRainbow() {
   for (uint8_t i = 0; i < NUM_LEDS; i++) {
     uint8_t index = 255.0 * i / (NUM_LEDS - 1);
-    leds[i] = ColorFromPalette(RainbowColors_p, index + paletteIndex);
+    leds[i] = ColorFromPalette(RainbowColors_p, index);
   }
+}
+
+#define HALF_LEDS NUM_LEDS / 2
+void modeCandle() {
+  // Array of temperature readings at each simulation cell
+  static byte heat[HALF_LEDS];
+
+  static uint8_t IGNIT = 8;
+  static uint8_t COOLING = 40;
+  static uint8_t SPARKING = 120;
+
+  // Step 1.  Cool down every cell a little
+  for (int i = 0; i < HALF_LEDS; i++) {
+    heat[i] = qsub8(heat[i], random8(0, ((COOLING * 10) / HALF_LEDS) + 2));
+  }
+  
+  // Step 2.  Heat from each cell drifts 'up' and diffuses a little
+  for (int k = HALF_LEDS - 1; k >= 2; k--) {
+    heat[k] = (heat[k - 1] + heat[k - 1] + heat[k - 2] + heat[k - 3]) / 5;
+  }
+  
+  // Step 3.  Randomly ignite new 'sparks' of heat near the bottom
+  if (random8() < SPARKING) {
+    int y = random8(IGNIT);
+    heat[y] = qadd8(heat[y], random8(160-y,255-y));
+  }
+
+  // Step 4.  Map from heat cells to LED colors
+  for (int j = 0; j < HALF_LEDS; j++) {
+    // Scale the heat value from 0-255 down to 0-240
+    // for best results with color palettes.
+    byte colorindex = scale8(heat[j], 240);
+    CRGB color = ColorFromPalette(HeatColors_p, colorindex);
+    
+    leds[j] = color;
+    leds[NUM_LEDS - 1 - j] = color;
+  }
+
+  FastLED.delay(10);
 }
 
 void blink(uint8_t nb) {
@@ -119,7 +147,7 @@ void doublePress() {
 
   configDirection = true;
   
-  if (mode == MODE_STATIC || mode == MODE_RAINBOW_MOVE) {
+  if (mode == MODE_STATIC) {
     if (inConfig) {
       inConfig = false;
       blink(2);
@@ -160,16 +188,6 @@ void sustain(bool isLast) {
           }
         } else {
           temperature = qsub8(temperature, 1);
-        }
-        break;
-        
-      case MODE_RAINBOW_MOVE:
-        if (configDirection) {
-          if (speed < SPEED_MAX) {
-            speed++;
-          }
-        } else if (speed > SPEED_MIN) {
-          speed--;
         }
         break;
     }
