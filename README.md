@@ -2,6 +2,8 @@
 
 A circular lamp using Cold White/Warm White/Amber LED strip.
 
+![render](Images/render.jpg)
+
 ## Parts list
 
 ### 3D printed parts
