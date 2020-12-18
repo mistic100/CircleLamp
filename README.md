@@ -1,8 +1,10 @@
 # CircleLamp
 
-A circular lamp using Cold White/Warm White/Amber LED strip.
+A circular lamp using Cold White/Warm White/Amber LED strip inspired by [this design by minchang kwon](https://www.thingiverse.com/thing:4659384).
 
 ![render](Images/render.jpg)
+
+[Photos on my website](https://galerie.strangeplanet.fr/index.php?/category/203)
 
 ## Parts list
 
@@ -12,7 +14,6 @@ A circular lamp using Cold White/Warm White/Amber LED strip.
 - 1x arc-wire
 - 1x support
 - 2x support-arc
-- 1x support-lock
 
 ### Electronics
 
@@ -24,18 +25,17 @@ A circular lamp using Cold White/Warm White/Amber LED strip.
 
 ### Hardware
 
-- 2x M4 screws
 - 2x M3 screws
 - 4x M2 screws
 - 1 meter T2016 LED Strip tube (cut the white part with an utility knife)
 
 ## Assembly
 
-Assembly is pretty straightforward. Stick the four arcs together as well as the support arcs in the support. Then glue the LED strip and place the diffuser (don't need glue if you cut it at the right size).
+Assembly is pretty straightforward. Stick the four arcs together then glue the LED strip and place the diffuser (don't need glue if you cut it at the right size).
 
-Solder the LED strip input to D2 and the button output to A6 and the power lines as usual. Use the M3 and M2 screws to secure the Arduino and the Micro-USB port, and hot glue for the button.
+Solder the LED strip input to D4 and the button output to A0 and the power lines as usual. Use the M3 and M2 screws to secure the Arduino and the Micro-USB port, and hot glue for the button.
 
-Insert the ring the support and secure it with the support lock and two M4 screws. The drop shapped hole in the support is meant to hold the original LED connector.
+Assemble the support arcs to the ring and insert the whole assembly in the support. The drop-shapped hole in the support is meant to hold the original LED connector.
 
 ## Controls
 

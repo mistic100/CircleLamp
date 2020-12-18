@@ -1,6 +1,6 @@
 #include "FastLED.h"
 
-#define LED_PIN 2
+#define LED_PIN 4
 #define NUM_LEDS 60
 #define LED_TYPE WS2812
 #define COLOR_ORDER BRG
@@ -8,7 +8,7 @@
 // G = Warm White
 // B = Cold White
 
-#define BUTTON_PIN A6
+#define BUTTON_PIN A0
 #define BUTTON_THRES 500
 #define BUTTON_DELAY 300
 #define BUTTON_SUSTAIN_DELAY 1000
@@ -24,7 +24,7 @@
 #define MODE_STATIC 0
 #define MODE_RAINBOW 1
 #define MODE_CANDLE 2
-#define MODE_MAX_ MODE_CANDLE
+#define MODE_MAX_ MODE_STATIC
 
 unsigned long btnTime = 0;
 uint8_t btnState = BTN_IDLE;
