@@ -21,21 +21,22 @@
 #define BTN_SUSTAIN 2
 #define BTN_RELEASE 3
 
-#define MODE_STATIC 0
-#define MODE_RAINBOW 1
-#define MODE_CANDLE 2
-#define MODE_MAX_ MODE_STATIC
+#define MODE_FULL 0
+#define MODE_STATIC 1
+#define MODE_RAINBOW 2
+#define MODE_CANDLE 3
+#define MODE_MAX_ MODE_CANDLE
 
 unsigned long btnTime = 0;
 uint8_t btnState = BTN_IDLE;
 bool btnDouble = false;
 
 CRGB leds[NUM_LEDS];
-uint8_t mode = MODE_CANDLE;
+uint8_t mode = MODE_FULL;
 bool on = true;
 bool inConfig = false;
 bool configDirection = true;
-uint8_t brightness = 64;
+uint8_t brightness = 128;
 uint8_t temperature = 128;
 
 void setup() {
@@ -51,6 +52,10 @@ void loop() {
   }
   else {
     switch (mode) {
+      case MODE_FULL:
+        modeFull();
+        break;
+      
       case MODE_STATIC:
         modeStatic();
         break;
@@ -73,6 +78,10 @@ void loop() {
 
 void modeOff() {
   fill_solid(leds, NUM_LEDS, CRGB::Black);
+}
+
+void modeFull() {
+  fill_solid(leds, NUM_LEDS, CRGB::White);
 }
 
 void modeStatic() {

@@ -45,7 +45,8 @@ On/Off
 **Long touch (< 1s)**  
 Next mode
 
-- Mode 1 : static single temperature
+- Mode 0 : full brightness (default)
+- Mode 1 : static configurable temperature
 - Mode 2 : "rainbow" of temperatures
 - Mode 3 : candle animation
 
@@ -55,6 +56,7 @@ Increase/decrease brightness
 **Double touch**  
 Enter config mode. The ring will blink three times, double touch again to exit config, the ring will blink twice.
 
+- Mode 0 : not configurable
 - Mode 1 : long touch to change the temperature
 - Mode 2 : not configurable
 - Mode 3 : not configurable
