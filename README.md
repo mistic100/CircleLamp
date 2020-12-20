@@ -87,3 +87,8 @@ graph TD
 ```
 
 </details>
+
+
+## License
+
+The SolidWorks files and Arduino code are distributed under the Creative Commons 3.0 BY-SA license.
