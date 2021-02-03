@@ -168,7 +168,11 @@ void doublePress() {
 }
 
 void longPress() {
-  if (!on || inConfig) {
+  if (!on) {
+    on = true;
+    return;
+  }
+  if (inConfig) {
     return;
   }
   
