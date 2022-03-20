@@ -1,10 +1,16 @@
 # CircleLamp
 
-A circular lamp using Cold White/Warm White/Amber LED strip inspired by [this design by minchang kwon](https://www.thingiverse.com/thing:4659384).
+A circular lamp using LED strip inspired by [this design by minchang kwon](https://www.thingiverse.com/thing:4659384).
 
 ![render](Images/render.jpg)
 
 [Photos on my website](https://galerie.strangeplanet.fr/index.php?/category/203)
+
+There are two versions of the base :
+
+- one for a adressable LED strip + Arduino Nano
+- one for a simple 12V strip + dimmer
+
 
 ## Parts list
 
@@ -12,32 +18,28 @@ A circular lamp using Cold White/Warm White/Amber LED strip inspired by [this de
 
 - 3x arc
 - 1x arc-wire
-- 1x support
+- 1x support or support2
 - 2x support-arc
 
 ### Electronics
 
-- 1 meter SK6812 WWA LED strip (60 LEDS/m)
-- 1x Arduino Nano
-- 1x TTTP223 touch button
-- 1x Micro-USB breakout
-- 1x 2A USB wall adapter + USB cable
+- Adressable version
+  - 1 meter SK6812 WWA LED strip (60 LEDS/m)
+  - 1x Arduino Nano
+  - 1x TTTP223 touch button
+  - 1x Micro-USB breakout
+  - 1x 2A USB wall adapter + USB cable
+- Simple version
+  - 1 meter natural white 12v LED strip ([COB strip](https://aliexpress.com/item/4000145232270.html) prefered)
+  - 1x [capacitive dimmer](https://aliexpress.com/item/1005002395129687.html)
+  - 1x 5.5mm DC Jack
+  - 1x 2A 12V wall adapter
 
 ### Hardware
 
-- 2x M3 screws
-- 4x M2 screws
 - 1 meter T2016 LED Strip tube (cut the white part with an utility knife)
 
-## Assembly
-
-Assembly is pretty straightforward. Stick the four arcs together then glue the LED strip and place the diffuser (don't need glue if you cut it at the right size).
-
-Solder the LED strip input to D4 and the button output to A0 and the power lines as usual. Use the M3 and M2 screws to secure the Arduino and the Micro-USB port, and hot glue for the button.
-
-Assemble the support arcs to the ring and insert the whole assembly in the support. The drop-shapped hole in the support is meant to hold the original LED connector.
-
-## Controls
+## Controls (adressable version only)
 
 **Single touch**  
 On/Off

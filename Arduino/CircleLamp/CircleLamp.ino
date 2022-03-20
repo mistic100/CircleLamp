@@ -36,7 +36,7 @@ uint8_t mode = MODE_FULL;
 bool on = true;
 bool inConfig = false;
 bool configDirection = true;
-uint8_t brightness = 128;
+uint8_t brightness = 255;
 uint8_t temperature = 128;
 
 void setup() {
